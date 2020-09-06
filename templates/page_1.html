@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <title>냉장고 속 보물찾기</title>
+
+    <!-- style -->
+    <style type="text/css">
+
+        body{
+            color:#666666;
+            font-size: 12pt;
+            margin: 0;
+
+        }
+
+        .wrap{
+            width: 900px;
+            margin:auto;
+        }
+
+        .jumbotron{
+            background-image: url('https://i.pinimg.com/564x/0c/73/8a/0c738a4ce8f167fb520201f63d333b2a.jpg');
+            /*background-size: contain;*/
+            background-size: cover;
+            background-position: right;
+            background-repeat: no-repeat;
+            background-blend-mode: screen;
+            /*text-shadow: black 0.2em 0.2em 0.2em;*/
+            color:black;
+            font-family: "Do Hyeon", sans-serif;
+        }
+
+        .lead{
+            font-family: "Do Hyeon", sans-serif;
+        }
+        .left {
+
+            float: left;
+            width:50%;
+
+        }
+
+
+        #ingredient_all{
+            border:0px;
+            background-color: #4a69bd;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border:0;
+            outline:0;
+
+            margin: 5px;
+        }
+
+        #ingredient_all:hover{
+            background-color:#0a3d62;
+            box-shadow:0px 15px 20px #4a69bd;
+            colof:#fff;
+            transform:translateY(-7px);
+        }
+
+
+        #input-desc{
+            margin: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background-color: lightsteelblue;
+            text-align: center;
+            font-family: 'Nanum Gothic', sans-serif;
+            color: #4b4b4b;
+        }
+
+        .input{
+
+            margin: 5px;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .right{
+
+            background-image: url("../static/fridge.jpg");
+            width:300px;
+            height:500px;
+            background-position: top center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            /*background-blend-mode: screen;*/
+            opacity: 0.7;
+            float: right;
+            width:50%;
+            z-index: -9000;
+
+        }
+
+        #direct_fridge{
+            border:0px;
+            background-color: #95a5a6;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border:0;
+            outline:0;
+
+            margin: 5px;
+        }
+
+        #direct_fridge:hover{
+            background-color:#7f8c8d;
+            box-shadow:0px 15px 20px #95a5a6;
+            colof:#fff;
+            transform:translateY(-7px);
+        }
+        #back_to_main{
+            border:0px;
+            background-color: #ffda79;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border:0;
+            outline:0;
+
+            margin: 5px;
+        }
+
+
+
+        hr{display:none;}
+
+
+
+    </style>
+
+    <script>
+
+
+        function ingredient_all() {//냉장고에 append하는 함수
+            let ingredient = $('#ingredient').val();
+            let amount = $('#amount').val();
+            let expiration_year = $('#expiration_year').val();
+            let expiration_month = $('#expiration_month').val();
+            let expiration_date = $('#expiration_date').val();
+
+
+
+            if ( ingredient== "") {
+
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "재료명을 채워주세요",
+                    icon: "warning",
+                    button:"네,알겠어요"
+                });
+                $("#ingredient").focus()
+                return
+            } else if (amount== ""){
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "수량을 채워주세요",
+                    icon: "warning",
+                    button:"네,알겠어요"
+                });
+                $("#amount").focus()
+                return
+            } else if (expiration_year == "") {
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "유통기한의 년도를 채워주세요",
+                    icon: "warning",
+                    button:"네,알겠어요"
+                });
+                $("#expiration-year").focus()
+                return
+            } else if (expiration_month == "") {
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "유통기한의 달을 채워주세요",
+                    icon: "warning",
+                    button:"네,알겠어요"
+                });
+                $("#expiration-month").focus()
+                return
+            } else if (expiration_date== "") {
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "유통기한의 날짜를 채워주세요",
+                    icon: "warning",
+                    button:"네,알겠어요"
+                });
+                $("#expiration-date").focus()
+                return
+            }else{
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/fridge',
+                    data: {
+                        ingredient: ingredient, amount: amount, expiration_year: expiration_year,
+                        expiration_month: expiration_month, expiration_date: expiration_date
+                    },
+                    success: function (response) {
+
+                        if (response["result"] == "success") {
+                            swal({
+                                icon: "success",
+                                text: "재료 데이터 전송완료되었습니다!"
+                            });
+                            window.location.href="/page_2";
+
+                        }
+
+                    }
+                })
+            }
+        }
+        function back_to_main() {
+            window.location.href='/';
+        }
+
+        function direct_fridge() {
+            window.location.href="/page_2";
+        }
+
+    </script>
+
+</head>
+
+<body>
+<div id="wrap">
+    <div class="jumbotron">
+        <h1 class="display-4">냉장고에 넣어봐요!&#x1F31F;</h1>
+        <p class="lead">냉장고 속에 재료를 넣고, 유통기한, 재료의 양을 한눈에 살펴요!</p>
+        <button id="back_to_main" onclick="back_to_main()">이전페이지</button>
+
+    </div>
+
+    <hr>
+
+    <div class="left">
+
+        <h5 id="input-desc">재료명,양,유통기한을 입력하세요.</h5></br>
+        <div class="input">
+            <div class="ingredient-text">재료명
+                <input type="text" class="form-control" id="ingredient">
+            </div></br>
+
+
+            <label class="ingredient-amount" for="amount">양(amount)</label>
+            <div><select class="custom-select" id="amount">
+                <option selected value=""> -- 양을 선택하세요 --</option>
+                <option value="전체">전체</option>
+                <option value="2/3">2/3</option>
+                <option value="1/2">1/2</option>
+                <option value="1/3">1/3</option>
+            </select></div></br>
+
+
+            <div class="ingredient-expiration">
+                년도 ex)2020
+                <input id="expiration_year" type="text" class="form-control">
+
+                월 ex)08
+                <input id="expiration_month" type="text" class="form-control">
+
+                일 ex)06
+                <input id="expiration_date" type="text" class="form-control">
+
+            </div></br>
+
+
+            <button id="ingredient_all" onclick="ingredient_all()">냉장고에 넣기</button>
+            <button id="direct_fridge"  onclick="direct_fridge()">건너뛰기</button>
+
+        </div>
+
+    </div>
+
+
+    <div class="right">
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

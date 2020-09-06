@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>냉장고 속 보물찾기</title>
+
+
+    <!doctype html>
+    <html lang="ko">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <!-- 구글폰트 -->
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+        <title>냉장고 속 보물찾기</title>
+
+        <!-- style -->
+        <style type="text/css">
+
+            #wrap {
+                width: 900px;
+                margin: auto;
+                font-family: 'Nanum Gothic', sans-serif;
+            }
+
+            .jumbotron{
+                background-image: url('https://i.pinimg.com/564x/0c/73/8a/0c738a4ce8f167fb520201f63d333b2a.jpg');
+                /*background-size: contain;*/
+                background-size: cover;
+                background-position: right;
+                background-repeat: no-repeat;
+                background-blend-mode: screen;
+                /*text-shadow: black 0.2em 0.2em 0.2em;*/
+                color:black;
+                font-family: "Do Hyeon", sans-serif;
+
+            }
+            #recipe_link{
+
+                border:0px;
+                background-color: #4bcffa;
+                color:white;
+                height: 40px;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                border:0;
+                outline:0;
+
+                margin: 5px;
+            }
+
+            #recipe_link:hover{
+                background-color:#0fbcf9;
+                box-shadow:0px 15px 20px #4bcffa;
+                colof:#fff;
+                transform:translateY(-7px);
+            }
+
+             #back_to_page_2{
+            border:0px;
+            background-color: #ffda79;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border:0;
+            outline:0;
+
+            margin: 5px;
+        }
+
+
+
+
+        </style>
+
+        <script>
+
+            $(document).ready(function () {
+                let link=window.location.search
+                let ingredients=link.split('=')
+                let ingredient_to_find=ingredients[1]
+                let DecodeIngredient=decodeURI(ingredient_to_find)
+                show_recipe(DecodeIngredient);
+
+
+            });
+
+            function show_recipe(DecodeIngredient) {
+
+                //재료명 먼저 가져오기 주소창에서 긁어오는 방법 물어보기
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/fridge/show?ingredient='+DecodeIngredient, //여기 뒤에 붙여야됨
+                    data: {},
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+
+                            console.log(DecodeIngredient)
+                            let recipe_all = response['recipe_all'];
+
+                            console.log(recipe_all)
+
+                            for(let i=0;i<recipe_all.length;i++){
+                                makerecipecard(recipe_all[i]['name'],recipe_all[i]['img_url'],
+                                    recipe_all[i]['ingredients'],recipe_all[i]['url'])
+
+                            }
+
+                        }else{
+                            swal({
+                                icon:"warning",
+                                text:"레시피데이터를 받아오지 못했습니다."
+                            });
+                        }
+                    }
+                })
+
+            }
+
+            function makerecipecard(name,img_url,ingredients,url){
+
+                let temphtml=`<div class="card">
+                                <img class="card-img-top" src="${img_url}" alt="Card image cap">
+                                <div class="card-body">
+                                <h5 class="card-title">${name}</h5>
+                                <p class="card-text">${ingredients}</p>
+                                <a href="${url}" id="recipe_link" class="btn btn-primary">레시피링크</a>
+                                 </div>
+                                </div>`
+
+                $('#cards-box').append(temphtml)
+
+
+
+
+            }
+            function back_to_page_2(){
+                window.location.href="/page_2";
+            }
+
+
+
+        </script>
+
+    </head>
+
+<body>
+<div id="wrap">
+    <div class="jumbotron" id="recipe_page">
+        <h1 class="display-4" id="pesonal-fridge">레시피를 보여드려요!&#x1F31F;</h1>
+        <button id="back_to_page_2" onclick="back_to_page_2()">이전페이지</button>
+        <p class="lead"></p>`
+
+    </div>
+    <div id="cards-box" class="card-columns">
+
+    </div>
+</div>
+</body>
+
+</html>
+</head>
+<body>
+
+</body>
+</html>

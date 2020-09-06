@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!--    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <title>냉장고 속 보물찾기</title>
+
+    <!-- style -->
+    <style type="text/css">
+
+
+        #edit_modal{
+            border:0px;
+            background-color:coral;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border:0;
+            outline:0;
+            font-family:'Do Hyeon', sans-serif;
+
+            margin: 5px;
+        }
+
+        #edit_modal:hover{
+            background-color:orangered;
+            box-shadow:0px 15px 20px coral;
+            colof:#fff;
+            transform:translateY(-7px);
+        }
+
+        .btn-secondary{
+            border: 0px;
+            background-color: #e77f67;
+            color: white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        .btn-secondary:hover {
+            background-color:#e15f41;
+            box-shadow: 0px 15px 20px #e77f67;
+            colof: #fff;
+            transform: translateY(-7px);
+        }
+
+        .btn-primary{
+            border: 0px;
+            background-color:#778beb;
+            color: white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background-color:#546de5;
+            box-shadow: 0px 15px 20px #778beb;
+            colof: #fff;
+            transform: translateY(-7px);
+        }
+
+
+    </style>
+
+    <script>
+
+
+        $(function () {
+
+            $('table').on('click','#edit_button',function (ele) {
+                let tr=ele.target.parentNode.parentNode;
+                let ingredient=tr.cells[0].textContent;
+                let amount=tr.cells[1].te
+
+
+
+            })
+
+        })
+
+    </script>
+
+</head>
+
+<body>
+<!--<button type="button" class="btn btn-primary" id='edit_button' data-toggle="modal" data-target="#editModal">-->
+<!--    수정하기-->
+<!--</button>-->
+<!--<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="ModalLabel" style="font-family: 'Nanum Gothic', sans-serif">수정을 해주세요!</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body" style="font-family: 'Nanum Gothic', sans-serif">-->
+
+<!--                <form action="" method="POST" enctype="multipart/form-data"  method="POST" id="ModalForm">-->
+<!--                    {{csrf_field()}}-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="editIngredient">재료명</label>-->
+<!--                        <input type="text" name="ingredient" class="form-control" id="editIngredient" placeholder="ex)아보카도" required>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="editAmount">양(amount)</label>-->
+<!--                        <select class="form-control" id="editAmount" name="amount">-->
+<!--                            <option selected value="">&#45;&#45; 양을 선택하세요 &#45;&#45;</option>-->
+<!--                            <option value="전체">전체</option>-->
+<!--                            <option value="2/3">1</option>-->
+<!--                            <option value="1/2">2</option>-->
+<!--                            <option value="1/3">3</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="editYear">유통기한의 년도</label>-->
+<!--                        <input type="text"  name="Year" class="form-control" id="editYear" placeholder="ex)2020" required>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="editMonth">유통기한의 달</label>-->
+<!--                        <input type="text"  name="Month" class="form-control" id="editMonth" placeholder="ex)08" required>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="editDate">유통기한의 날짜</label>-->
+<!--                        <input type="text"  name="Date" class="form-control" id="editDate" placeholder="ex)06" required>-->
+<!--                    </div>-->
+
+<!--                    <div class="modal-footer">-->
+<!--                        <a  class="btn btn-secondary" data-dismiss="modal">취소</a>-->
+<!--                        <button type="button"  id="saveModalButton" class="btn btn-primary" data-dismiss="modal">수정완료</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" id='edit_modal' data-toggle="modal" data-target="#exampleModal">
+  수정하기
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'Nanum Gothic', sans-serif">수정을 해주세요!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-family: 'Nanum Gothic', sans-serif">
+         <div class="ingredient-text">재료명
+                    <input type="text" class="form-control" id="new_ingredient">
+
+                </div>
+                <label class="ingredient-amount" for="new_amount">양(amount)</label>
+                <div><select class="custom-select" id="new_amount">
+                    <option selected value=""> -- 양을 선택하세요 --</option>
+                    <option value="전체">전체</option>
+                    <option value="2/3">2/3</option>
+                    <option value="1/2">1/2</option>
+                    <option value="1/3">1/3</option>
+                </select></div>
+                <div id="EditResult">
+                    <a id='ex_year'>년도 ex)2020</a>
+                    <input id="new_expiration_year" type="text" class="form-control">
+                    <a id='ex_month'>달 ex)08</a>
+                    <input id="new_expiration_month" type="text" class="form-control">
+                    <a id='ex_date'>날짜 ex)06</a>
+                    <input id="new_expiration_date" type="text" class="form-control">
+
+                </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary">수정완료!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+</html>

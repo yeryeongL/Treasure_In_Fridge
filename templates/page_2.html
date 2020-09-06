@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <title>냉장고 속 보물찾기</title>
+
+    <!-- style -->
+    <style type="text/css">
+
+        .wrap{
+            width: 900px;
+            margin:auto;
+
+        }
+
+        .jumbotron{
+            background-image: url('https://i.pinimg.com/564x/0c/73/8a/0c738a4ce8f167fb520201f63d333b2a.jpg');
+            /*background-size: contain;*/
+            background-size: cover;
+            background-position: right;
+            background-repeat: no-repeat;
+            background-blend-mode: screen;
+            /*text-shadow: black 0.2em 0.2em 0.2em;*/
+            color:black;
+            font-family: "Do Hyeon", sans-serif;
+        }
+
+        .button-explain{
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        #recipe-explain{
+            border:0px;
+            background-color:#f6b93b;
+            color:white;
+            height: 20px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        #recipe-explain:hover{
+            background-color:#e58e26;
+            box-shadow:0px 15px 20px #f6b93b;
+            colof:#fff;
+            transform:translateY(-7px);
+        }
+
+        #remove-explain{
+            border:0px;
+            background-color:#60a3bc;
+            color:white;
+            height: 20px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+
+        }
+        #remove-explain:hover{
+            background-color:#3c6382;
+            box-shadow: 0px 15px 20px #60a3bc;
+            colof: #fff;
+            transform: translateY(-7px);
+        }
+        #edit-explain{
+            border:0px;
+            background-color:#78e08f;
+            color:white;
+            height: 20px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        #edit-explain:hover{
+            background-color:#1dd1a1;
+            box-shadow: 0px 15px 20px #78e08f;
+            colof: #fff;
+            transform: translateY(-7px);
+        }
+
+
+        #To-recipe{
+            border:0px;
+            background-color:#f6b93b;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        #To-recipe:hover{
+            background-color:#e58e26;
+            box-shadow:0px 15px 20px #f6b93b;
+            colof:#fff;
+            transform:translateY(-7px);
+        }
+        #remove-ing{
+            border:0px;
+            background-color:#60a3bc;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        #remove-ing:hover {
+            background-color:#3c6382;
+            box-shadow: 0px 15px 20px #60a3bc;
+            colof: #fff;
+            transform: translateY(-7px);
+        }
+
+
+        #ing_box{
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .red{
+            color: orangered;
+        }
+
+        #edit_modal{
+            border:0px;
+            background-color:#78e08f;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        #edit_modal:hover{
+            background-color:#1dd1a1;
+            box-shadow: 0px 15px 20px #78e08f;
+            colof: #fff;
+            transform: translateY(-7px);
+        }
+
+        .btn-secondary{
+            border: 0px;
+            background-color: #e77f67;
+            color: white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        .btn-secondary:hover {
+            background-color:#e15f41;
+            box-shadow: 0px 15px 20px #e77f67;
+            colof: #fff;
+            transform: translateY(-7px);
+        }
+
+        .btn-primary{
+            border: 0px;
+            background-color:#778beb;
+            color: white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: 0;
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background-color:#546de5;
+            box-shadow: 0px 15px 20px #778beb;
+            colof: #fff;
+            transform: translateY(-7px);
+        }
+         #back_to_page_1{
+            border:0px;
+            background-color: #ffda79;
+            color:white;
+            height: 40px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border:0;
+            outline:0;
+
+            margin: 5px;
+        }
+
+
+
+
+
+        hr{display:none;}
+
+
+
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+            show_fridge();
+            name();
+
+        });
+
+        function name(){
+
+            $.ajax({
+                type:'GET',
+                url:'/login',
+                data:{},
+                success:function(response){
+                    if(response['result']=='success'){
+                        let name=response['name'];
+                        console.log(name)
+                        getName(name);
+                    }
+                    else{
+                        swal({
+                            icon:"warning",
+                            text:"이름데이터를 받아오지 못했습니다."
+                        });
+                    }
+                }
+            })
+        }
+
+        function getName(name){
+            let temphtml=`
+                         <h1 class="display-4" id="pesonal-fridge">${name}님의 냉장고&#x1F31F;</h1>
+                        <p class="lead"></p>
+                        <button id="back_to_page_1" onclick="back_to_page_1()">이전페이지</button>`
+
+            $('#personal_fridge').append(temphtml);
+
+
+        }
+
+
+        function show_fridge() {//냉장고에 append하는 함수
+
+            $.ajax({
+                type:'GET',
+                url:'/fridge',
+                data:{},
+                success:function (response) {
+                    if(response['result']=='success'){
+
+                        let ingredients= response['ingredients']
+
+                        for(let i=0 ;i<ingredients.length;i++){
+                            make_ing_card(ingredients[i]['ingredient'],ingredients[i]['amount'],
+                                ingredients[i]['expiration_year'],ingredients[i]['expiration_month'],ingredients[i]['expiration_date'])
+                        }
+                    }
+                    else{
+                        swal({
+                            icon:"warning",
+                            text:"재료데이터를 받아오지 못했습니다."
+                        });
+                    }
+
+                }
+            })
+        }
+
+
+
+        function make_ing_card(ingredient,amount,expiration_year,expiration_month,expiration_date){
+
+            let d_day = new Date(expiration_year,expiration_month-1,expiration_date);
+            let now = new Date();
+
+            let gap = now.getTime() - d_day.getTime();
+            let result = Math.floor(gap / (1000 * 60 * 60 * 24)) * -1;
+
+            let temphtml =''
+
+
+            if(result<=3){
+                temphtml=`<tr class="red">
+                            <td id="EditIngredient">${ingredient}</td>
+                           <td id="EditAmount">${amount}</td>
+
+                            <td id="EditResult">${result}일
+                            <div class="buttons">
+                           <button id="To-recipe" onclick="To_recipe('${ingredient}')">레시피 보기</button>
+                            <button id="remove-ing" onclick="remove_check('${ingredient}')">삭제하기</button>
+                        <button type="button" class="btn btn-primary" id='edit_modal' data-toggle="modal" data-ingredient=${ingredient} data-target="#exampleModal">
+                          수정하기
+                        </button>
+                              </td>
+                          </tr>
+                           `
+            }
+            else{
+                temphtml=`<tr>
+                            <td id="EditIngredient">${ingredient}</td>
+                           <td id="EditAmount">${amount}</td>
+
+                            <td id="EditResult">${result}일
+                            <div class="buttons">
+                           <button id="To-recipe" onclick="To_recipe('${ingredient}')">레시피 보기</button>
+                            <button id="remove-ing" onclick="remove_check('${ingredient}')">삭제하기</button>
+                            <button type="button" class="btn btn-primary" id='edit_modal' data-toggle="modal" data-ingredient=${ingredient} data-target="#exampleModal">
+                              수정하기
+                            </button>
+                             </td>
+                          </tr>`
+            }
+
+            $('#ing_box').append(temphtml);
+
+
+        }
+
+        function To_recipe(ingredient) {
+            $.ajax({
+                type: 'POST',
+                url: '/fridge/ToRecipe',
+                data: {ingredient: ingredient},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+
+                        window.location.href = "/page_3?ingredient="+ingredient;
+                    }
+
+                }
+            })
+        }
+
+        function remove_check(ingredient) {
+
+            $.ajax({
+                type:'POST',
+                url:'/fridge/delete',
+                data:{ingredient:ingredient},
+                success:function (response) {
+                    if (response['result'] == 'success') {
+
+
+
+                        swal({
+                            icon: "success",
+                            text: "삭제가 완료되었습니다!"
+                        });
+
+                        setTimeout(function () {
+
+                        },2000);
+
+                    }
+                    else{
+                        swal({
+                            icon:"warning",
+                            text:"삭제에 실패하였습니다."
+                        });
+                    }
+                }
+            });
+            setTimeout(function () {
+                window.location.reload();
+            },1000);
+
+        }
+
+
+        $(document).on("click", "#edit_modal", function (event) {
+            let button = $(event.target) // Button that triggered the modal
+            let recipient = button.data('ingredient')
+
+            // let ingredient = $('#EditIngredient').text();
+            // console.log(ingredient)
+            $(".modal-body #new_ingredient").val( recipient );
+        });
+
+
+
+        function submit() {
+
+            let ingredient=$('.modal-body #new_ingredient').val();
+            let amount = $('#new_amount').val();
+            let expiration_year = $('#new_expiration_year').val();
+            let expiration_month = $('#new_expiration_month').val();
+            let expiration_date = $('#new_expiration_date').val();
+
+
+            if (amount == "") {
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "수량을 채워주세요",
+                    icon: "warning",
+                    button: "네,알겠어요"
+                });
+                $("#amount").focus()
+                return
+            } else if (expiration_year == "") {
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "유통기한의 년도를 채워주세요",
+                    icon: "warning",
+                    button: "네,알겠어요"
+                });
+                $("#expiration-year").focus()
+                return
+            } else if (expiration_month == "") {
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "유통기한의 달을 채워주세요",
+                    icon: "warning",
+                    button: "네,알겠어요"
+                });
+                $("#expiration-month").focus()
+                return
+            } else if (expiration_date == "") {
+                swal({
+                    title: "앗, 잠깐만요!",
+                    text: "유통기한의 날짜를 채워주세요",
+                    icon: "warning",
+                    button: "네,알겠어요"
+                });
+                $("#expiration-date").focus()
+                return
+            } else {
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/fridge/edit",
+                    data: {
+                        ingredient: ingredient, amount: amount, expiration_year: expiration_year,
+                        expiration_month: expiration_month, expiration_date: expiration_date
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            swal({
+                                icon: "success",
+                                text: "수정이 완료되었습니다!"
+                            });
+
+
+
+                            // 변경된 메모를 보기 위해 창을 새로고침
+                            location.reload();
+                        } else {
+                            swal({
+                                icon: "warning",
+                                text: "수정에 실패하였습니다."
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
+         function back_to_page_1(){
+                window.location.href="/page_1";
+            }
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+<div id="wrap">
+    <div class="jumbotron" id="personal_fridge">
+
+
+    </div>
+
+
+
+    <div class="button-explain">
+        <h5 style="color:#535c68">-버튼설명-</h5>
+
+        <h6><button id="recipe-explain">레시피 보기</button>:클릭하면 해당하는 레시피를 볼 수 있어요!</h6>
+        <h6><button id="remove-explain">삭제하기</button>:클릭하면 해당하는 재료를 삭제할 수 있어요!</h6>
+        <h6><button id="edit-explain">수정하기</button>:클릭하면 해당하는 레시피의 유통기한과 양을 수정할 수 있어요!</h6>
+
+
+    </div>
+
+
+    <div class="show_ingredient">
+
+        <div class="ing_all">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">재료</th>
+                    <th scope="col">남은 수량</th>
+                    <th scope="col">남은 날짜</th>
+                </tr>
+                </thead>
+                <tbody id="ing_box">
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'Nanum Gothic', sans-serif">수정을 해주세요!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-family: 'Nanum Gothic', sans-serif">
+                    <div class="ingredient-text">재료명
+                        <input type="text" class="form-control" id="new_ingredient">
+
+                    </div>
+                    <label class="ingredient-amount" for="new_amount">양(amount)</label>
+                    <div><select class="custom-select" id="new_amount">
+                        <option selected value=""> -- 양을 선택하세요 --</option>
+                        <option value="전체">전체</option>
+                        <option value="2/3">2/3</option>
+                        <option value="1/2">1/2</option>
+                        <option value="1/3">1/3</option>
+                    </select></div>
+                    <div id="EditResult">
+                        <a id='ex_year'>년도 ex)2020</a>
+                        <input id="new_expiration_year" type="text" class="form-control">
+                        <a id='ex_month'>달 ex)08</a>
+                        <input id="new_expiration_month" type="text" class="form-control">
+                        <a id='ex_date'>날짜 ex)06</a>
+                        <input id="new_expiration_date" type="text" class="form-control">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" onclick="submit('${ingredient}')" class="btn btn-primary">수정완료!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
